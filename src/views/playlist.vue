@@ -1,26 +1,48 @@
 <template>
   <div v-show="show" class="playlist">
-    <div v-if="specialPlaylistInfo === undefined && !isLikeSongsPage" class="playlist-info">
-      <Cover :id="playlist.id" :image-url="playlist.coverImgUrl | resizeImage(1024)" :show-play-button="true"
-        :always-show-shadow="true" :click-cover-to-play="true" :fixed-size="288" type="playlist" :cover-hover="false"
-        :play-button-size="18" @click.right.native="openMenu" />
+    <div
+      v-if="specialPlaylistInfo === undefined && !isLikeSongsPage"
+      class="playlist-info"
+    >
+      <Cover
+        :id="playlist.id"
+        :image-url="playlist.coverImgUrl | resizeImage(1024)"
+        :show-play-button="true"
+        :always-show-shadow="true"
+        :click-cover-to-play="true"
+        :fixed-size="288"
+        type="playlist"
+        :cover-hover="false"
+        :play-button-size="18"
+        @click.right.native="openMenu"
+      />
       <div class="info">
-        <div class="title" @click.right="openMenu"><span v-if="playlist.privacy === 10" class="lock-icon">
-            <svg-icon icon-class="lock" />
-          </span>{{ playlist.name }}</div>
+        <div class="title" @click.right="openMenu"
+          ><span v-if="playlist.privacy === 10" class="lock-icon">
+            <svg-icon icon-class="lock" /> </span
+          >{{ playlist.name }}</div
+        >
         <div class="artist">
           Playlist by
-          <span v-if="
-            [
-              5277771961,
-              5277965913,
-              5277969451,
-              5277778542,
-              5278068783,
-            ].includes(playlist.id)
-          " style="font-weight: 600">Apple Music</span>
-          <a v-else :href="`https://music.163.com/#/user/home?id=${playlist.creator.userId}`" target="blank">{{
-          playlist.creator.nickname }}</a>
+          <span
+            v-if="
+              [
+                5277771961,
+                5277965913,
+                5277969451,
+                5277778542,
+                5278068783,
+              ].includes(playlist.id)
+            "
+            style="font-weight: 600"
+            >Apple Music</span
+          >
+          <a
+            v-else
+            :href="`https://music.163.com/#/user/home?id=${playlist.creator.userId}`"
+            target="blank"
+            >{{ playlist.creator.nickname }}</a
+          >
         </div>
         <div class="date-and-count">
           {{ $t('playlist.updatedAt') }}
@@ -34,15 +56,26 @@
           <ButtonTwoTone icon-class="play" @click.native="playPlaylistByID()">
             {{ $t('common.play') }}
           </ButtonTwoTone>
-          <ButtonTwoTone v-if="playlist.creator.userId !== data.user.userId"
-            :icon-class="playlist.subscribed ? 'heart-solid' : 'heart'" :icon-button="true" :horizontal-padding="0"
-            :color="playlist.subscribed ? 'blue' : 'grey'" :text-color="playlist.subscribed ? '#335eea' : ''"
+          <ButtonTwoTone
+            v-if="playlist.creator.userId !== data.user.userId"
+            :icon-class="playlist.subscribed ? 'heart-solid' : 'heart'"
+            :icon-button="true"
+            :horizontal-padding="0"
+            :color="playlist.subscribed ? 'blue' : 'grey'"
+            :text-color="playlist.subscribed ? '#335eea' : ''"
             :background-color="
               playlist.subscribed ? 'var(--color-secondary-bg)' : ''
-            " @click.native="likePlaylist">
+            "
+            @click.native="likePlaylist"
+          >
           </ButtonTwoTone>
-          <ButtonTwoTone icon-class="more" :icon-button="true" :horizontal-padding="0" color="grey"
-            @click.native="openMenu">
+          <ButtonTwoTone
+            icon-class="more"
+            :icon-button="true"
+            :horizontal-padding="0"
+            color="grey"
+            @click.native="openMenu"
+          >
           </ButtonTwoTone>
         </div>
       </div>
@@ -50,78 +83,141 @@
         <div class="container" :class="{ active: inputFocus }">
           <svg-icon icon-class="search" />
           <div class="input">
-            <input v-model.trim="inputSearchKeyWords" v-focus :placeholder="inputFocus ? '' : $t('playlist.search')"
-              @input="inputDebounce()" @focus="inputFocus = true" @blur="inputFocus = false" />
+            <input
+              v-model.trim="inputSearchKeyWords"
+              v-focus
+              :placeholder="inputFocus ? '' : $t('playlist.search')"
+              @input="inputDebounce()"
+              @focus="inputFocus = true"
+              @blur="inputFocus = false"
+            />
           </div>
         </div>
       </div>
     </div>
     <div v-if="specialPlaylistInfo !== undefined" class="special-playlist">
-      <div class="title" :class="specialPlaylistInfo.gradient" @click.right="openMenu">
+      <div
+        class="title"
+        :class="specialPlaylistInfo.gradient"
+        @click.right="openMenu"
+      >
         <!-- <img :src="playlist.coverImgUrl | resizeImage" /> -->
         {{ specialPlaylistInfo.name }}
       </div>
-      <div class="subtitle">{{ playlist.englishTitle }} · {{ playlist.updateFrequency }}
+      <div class="subtitle"
+        >{{ playlist.englishTitle }} · {{ playlist.updateFrequency }}
       </div>
 
       <div class="buttons">
-        <ButtonTwoTone class="play-button" icon-class="play" color="grey" @click.native="playPlaylistByID()">
+        <ButtonTwoTone
+          class="play-button"
+          icon-class="play"
+          color="grey"
+          @click.native="playPlaylistByID()"
+        >
           {{ $t('common.play') }}
         </ButtonTwoTone>
-        <ButtonTwoTone v-if="playlist.creator.userId !== data.user.userId"
-          :icon-class="playlist.subscribed ? 'heart-solid' : 'heart'" :icon-button="true" :horizontal-padding="0"
-          :color="playlist.subscribed ? 'blue' : 'grey'" :text-color="playlist.subscribed ? '#335eea' : ''"
+        <ButtonTwoTone
+          v-if="playlist.creator.userId !== data.user.userId"
+          :icon-class="playlist.subscribed ? 'heart-solid' : 'heart'"
+          :icon-button="true"
+          :horizontal-padding="0"
+          :color="playlist.subscribed ? 'blue' : 'grey'"
+          :text-color="playlist.subscribed ? '#335eea' : ''"
           :background-color="
             playlist.subscribed ? 'var(--color-secondary-bg)' : ''
-          " @click.native="likePlaylist">
+          "
+          @click.native="likePlaylist"
+        >
         </ButtonTwoTone>
-        <ButtonTwoTone icon-class="more" :icon-button="true" :horizontal-padding="0" color="grey"
-          @click.native="openMenu">
+        <ButtonTwoTone
+          icon-class="more"
+          :icon-button="true"
+          :horizontal-padding="0"
+          color="grey"
+          @click.native="openMenu"
+        >
         </ButtonTwoTone>
       </div>
     </div>
 
     <div v-if="isLikeSongsPage" class="user-info">
       <h1>
-        <img class="avatar" :src="data.user.avatarUrl | resizeImage" loading="lazy" />
+        <img
+          class="avatar"
+          :src="data.user.avatarUrl | resizeImage"
+          loading="lazy"
+        />
         {{ data.user.nickname }}{{ $t('library.sLikedSongs') }}
       </h1>
       <div class="search-box-likepage" @click="searchInPlaylist()">
         <div class="container" :class="{ active: inputFocus }">
           <svg-icon icon-class="search" />
           <div class="input" :style="{ width: searchInputWidth }">
-            <input v-if="displaySearchInPlaylist" v-model.trim="inputSearchKeyWords" v-focus
-              :placeholder="inputFocus ? '' : $t('playlist.search')" @input="inputDebounce()" @focus="inputFocus = true"
-              @blur="inputFocus = false" />
+            <input
+              v-if="displaySearchInPlaylist"
+              v-model.trim="inputSearchKeyWords"
+              v-focus
+              :placeholder="inputFocus ? '' : $t('playlist.search')"
+              @input="inputDebounce()"
+              @focus="inputFocus = true"
+              @blur="inputFocus = false"
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <TrackList :id="playlist.id" :tracks="filteredTracks" type="playlist" :extra-context-menu-item="
-      isUserOwnPlaylist ? ['removeTrackFromPlaylist'] : []
-    " />
+    <TrackList
+      :id="playlist.id"
+      :tracks="filteredTracks"
+      type="playlist"
+      :extra-context-menu-item="
+        isUserOwnPlaylist ? ['removeTrackFromPlaylist'] : []
+      "
+    />
 
     <div class="load-more">
-      <ButtonTwoTone v-show="hasMore" color="grey" :loading="loadingMore" @click.native="loadMore(100)">{{
-      $t('explore.loadMore') }}</ButtonTwoTone>
+      <ButtonTwoTone
+        v-show="hasMore"
+        color="grey"
+        :loading="loadingMore"
+        @click.native="loadMore(100)"
+        >{{ $t('explore.loadMore') }}</ButtonTwoTone
+      >
     </div>
 
-    <Modal :show="showFullDescription" :close="toggleFullDescription" :show-footer="false" :click-outside-hide="true"
-      title="歌单介绍">{{ playlist.description }}</Modal>
+    <Modal
+      :show="showFullDescription"
+      :close="toggleFullDescription"
+      :show-footer="false"
+      :click-outside-hide="true"
+      title="歌单介绍"
+      >{{ playlist.description }}</Modal
+    >
 
     <ContextMenu ref="playlistMenu">
       <!-- <div class="item">{{ $t('contextMenu.addToQueue') }}</div> -->
       <div class="item" @click="likePlaylist(true)">{{
-      playlist.subscribed
-      ? $t('contextMenu.removeFromLibrary')
-      : $t('contextMenu.saveToLibrary')
+        playlist.subscribed
+          ? $t('contextMenu.removeFromLibrary')
+          : $t('contextMenu.saveToLibrary')
       }}</div>
       <div class="item" @click="searchInPlaylist()">{{
-      $t('contextMenu.searchInPlaylist')
+        $t('contextMenu.searchInPlaylist')
       }}</div>
-      <div v-if="playlist.creator.userId === data.user.userId" class="item" @click="editPlaylist">编辑歌单信息</div>
-      <div v-if="playlist.creator.userId === data.user.userId" class="item" @click="deletePlaylist">删除歌单</div>
+      <div
+        v-if="playlist.creator.userId === data.user.userId"
+        class="item"
+        @click="editPlaylist"
+        >编辑歌单信息</div
+      >
+      <div
+        v-if="playlist.creator.userId === data.user.userId"
+        class="item"
+        @click="deletePlaylist"
+        >删除歌单</div
+      >
     </ContextMenu>
   </div>
 </template>
@@ -252,7 +348,7 @@ export default {
       },
     },
   },
-  data () {
+  data() {
     return {
       show: false,
       playlist: {
@@ -278,19 +374,19 @@ export default {
   },
   computed: {
     ...mapState(['player', 'data']),
-    isLikeSongsPage () {
+    isLikeSongsPage() {
       return this.$route.name === 'likedSongs';
     },
-    specialPlaylistInfo () {
+    specialPlaylistInfo() {
       return specialPlaylist[this.playlist.id];
     },
-    isUserOwnPlaylist () {
+    isUserOwnPlaylist() {
       return (
         this.playlist.creator.userId === this.data.user.userId &&
         this.playlist.id !== this.data.likedSongPlaylistID
       );
     },
-    filteredTracks () {
+    filteredTracks() {
       return this.tracks.filter(
         track =>
           (track.name &&
@@ -311,7 +407,7 @@ export default {
       );
     },
   },
-  created () {
+  created() {
     if (this.$route.name === 'likedSongs') {
       this.loadData(this.data.likedSongPlaylistID);
     } else {
@@ -324,7 +420,7 @@ export default {
   methods: {
     ...mapMutations(['appendTrackToPlayerList']),
     ...mapActions(['playFirstTrackOnList', 'playTrackOnListByID', 'showToast']),
-    playPlaylistByID (trackID = 'first') {
+    playPlaylistByID(trackID = 'first') {
       let trackIDs = this.playlist.trackIds.map(t => t.id);
       this.$store.state.player.replacePlaylist(
         trackIDs,
@@ -333,7 +429,7 @@ export default {
         trackID
       );
     },
-    likePlaylist (toast = false) {
+    likePlaylist(toast = false) {
       if (!isAccountLoggedIn()) {
         this.showToast(locale.t('toast.needToLogin'));
         return;
@@ -354,7 +450,7 @@ export default {
         });
       });
     },
-    loadData (id, next = undefined) {
+    loadData(id, next = undefined) {
       this.id = id;
       getPlaylistDetail(this.id, true)
         .then(data => {
@@ -373,7 +469,7 @@ export default {
           }
         });
     },
-    loadMore (loadNum = 100) {
+    loadMore(loadNum = 100) {
       let trackIDs = this.playlist.trackIds.filter((t, index) => {
         if (
           index > this.lastLoadedTrackIndex &&
@@ -394,10 +490,10 @@ export default {
         }
       });
     },
-    openMenu (e) {
+    openMenu(e) {
       this.$refs.playlistMenu.openMenu(e);
     },
-    deletePlaylist () {
+    deletePlaylist() {
       if (!isAccountLoggedIn()) {
         this.showToast(locale.t('toast.needToLogin'));
         return;
@@ -414,10 +510,10 @@ export default {
         });
       }
     },
-    editPlaylist () {
+    editPlaylist() {
       nativeAlert('此功能开发中');
     },
-    searchInPlaylist () {
+    searchInPlaylist() {
       this.displaySearchInPlaylist =
         !this.displaySearchInPlaylist || this.isLikeSongsPage;
       if (this.displaySearchInPlaylist == false) {
@@ -428,20 +524,20 @@ export default {
         this.loadMore(500);
       }
     },
-    removeTrack (trackID) {
+    removeTrack(trackID) {
       if (!isAccountLoggedIn()) {
         this.showToast(locale.t('toast.needToLogin'));
         return;
       }
       this.tracks = this.tracks.filter(t => t.id !== trackID);
     },
-    inputDebounce () {
+    inputDebounce() {
       if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
       this.debounceTimeout = setTimeout(() => {
         this.searchKeyWords = this.inputSearchKeyWords;
       }, 600);
     },
-    toggleFullDescription () {
+    toggleFullDescription() {
       this.showFullDescription = !this.showFullDescription;
       if (this.showFullDescription) {
         this.$store.commit('enableScrolling', false);
@@ -615,10 +711,12 @@ export default {
 }
 
 .gradient-blue-purple {
-  background-image: linear-gradient(45deg,
-      #89c4f5 0%,
-      #6284ff 42%,
-      #ff0000 100%);
+  background-image: linear-gradient(
+    45deg,
+    #89c4f5 0%,
+    #6284ff 42%,
+    #ff0000 100%
+  );
 }
 
 .gradient-sharp-blue {
@@ -634,25 +732,31 @@ export default {
 }
 
 .gradient-indigo-pink-yellow {
-  background-image: linear-gradient(43deg,
-      #4158d0 0%,
-      #c850c0 46%,
-      #ffcc70 100%);
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
 }
 
 .gradient-light-red-light-blue {
-  background-image: linear-gradient(225deg,
-      hsl(190, 30%, 50%) 0%,
-      #081abb 38%,
-      #ec3841 58%,
-      hsl(13, 99%, 49%) 100%);
+  background-image: linear-gradient(
+    225deg,
+    hsl(190, 30%, 50%) 0%,
+    #081abb 38%,
+    #ec3841 58%,
+    hsl(13, 99%, 49%) 100%
+  );
 }
 
 .gradient-fog {
   background: linear-gradient(-180deg, #bcc5ce 0%, #929ead 98%),
-    radial-gradient(at top left,
+    radial-gradient(
+      at top left,
       rgba(255, 255, 255, 0.3) 0%,
-      rgba(0, 0, 0, 0.3) 100%);
+      rgba(0, 0, 0, 0.3) 100%
+    );
   background-blend-mode: screen;
 }
 
@@ -685,24 +789,30 @@ export default {
 }
 
 .gradient-moonstone-blue {
-  background-image: linear-gradient(147deg,
-      hsl(200, 34%, 8%) 0%,
-      hsl(204, 35%, 38%) 50%,
-      hsl(200, 34%, 18%) 100%);
+  background-image: linear-gradient(
+    147deg,
+    hsl(200, 34%, 8%) 0%,
+    hsl(204, 35%, 38%) 50%,
+    hsl(200, 34%, 18%) 100%
+  );
 }
 
 .gradient-pink-purple-blue {
-  background-image: linear-gradient(to right,
-      #ff3cac 0%,
-      #784ba0 50%,
-      #2b86c5 100%) !important;
+  background-image: linear-gradient(
+    to right,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  ) !important;
 }
 
 .gradient-green {
-  background-image: linear-gradient(90deg,
-      #c6f6d5,
-      #68d391,
-      #38b2ac) !important;
+  background-image: linear-gradient(
+    90deg,
+    #c6f6d5,
+    #68d391,
+    #38b2ac
+  ) !important;
 }
 
 .user-info {
@@ -774,7 +884,6 @@ export default {
 [data-theme='dark'] {
   .search-box {
     .active {
-
       input,
       .svg-icon {
         color: var(--color-text);
@@ -839,7 +948,6 @@ export default {
 [data-theme='dark'] {
   .search-box-likepage {
     .active {
-
       input,
       .svg-icon {
         color: var(--color-text);

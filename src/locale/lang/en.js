@@ -187,7 +187,8 @@ export default {
       },
       enableFlac: {
         title: 'Enable FLAC Sources',
-        desc: 'To take effect, it may be required to clear the cache after enabling this function.',
+        desc:
+          'To take effect, it may be required to clear the cache after enabling this function.',
       },
       searchMode: {
         title: 'Audio Search Mode',
