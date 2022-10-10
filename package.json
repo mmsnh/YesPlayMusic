@@ -115,7 +115,9 @@
     "globals": {
       "ipcRenderer": "off"
     },
-    "rules": {}
+    "rules": {
+      "vue/no-v-html":"off"
+    }
   },
   "browserslist": [
     "> 1%",

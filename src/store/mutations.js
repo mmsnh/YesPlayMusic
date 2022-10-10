@@ -2,31 +2,31 @@ import shortcuts from '@/utils/shortcuts';
 import cloneDeep from 'lodash/cloneDeep';
 
 export default {
-  updateLikedXXX(state, { name, data }) {
+  updateLikedXXX (state, { name, data }) {
     state.liked[name] = data;
     if (name === 'songs') {
       state.player.sendSelfToIpcMain();
     }
   },
-  changeLang(state, lang) {
+  changeLang (state, lang) {
     state.settings.lang = lang;
   },
-  changeMusicQuality(state, value) {
+  changeMusicQuality (state, value) {
     state.settings.musicQuality = value;
   },
-  changeLyricFontSize(state, value) {
+  changeLyricFontSize (state, value) {
     state.settings.lyricFontSize = value;
   },
-  changeOutputDevice(state, deviceId) {
+  changeOutputDevice (state, deviceId) {
     state.settings.outputDevice = deviceId;
   },
-  updateSettings(state, { key, value }) {
+  updateSettings (state, { key, value }) {
     state.settings[key] = value;
   },
-  updateData(state, { key, value }) {
+  updateData (state, { key, value }) {
     state.data[key] = value;
   },
-  togglePlaylistCategory(state, name) {
+  togglePlaylistCategory (state, name) {
     const index = state.settings.enabledPlaylistCategories.findIndex(
       c => c === name
     );
@@ -38,10 +38,10 @@ export default {
       state.settings.enabledPlaylistCategories.push(name);
     }
   },
-  updateToast(state, toast) {
+  updateToast (state, toast) {
     state.toast = toast;
   },
-  updateModal(state, { modalName, key, value }) {
+  updateModal (state, { modalName, key, value }) {
     state.modals[modalName][key] = value;
     if (key === 'show') {
       // 100ms的延迟是为等待右键菜单blur之后再disableScrolling
@@ -50,16 +50,16 @@ export default {
         : (state.enableScrolling = true);
     }
   },
-  toggleLyrics(state) {
+  toggleLyrics (state) {
     state.showLyrics = !state.showLyrics;
   },
-  updateDailyTracks(state, dailyTracks) {
+  updateDailyTracks (state, dailyTracks) {
     state.dailyTracks = dailyTracks;
   },
-  updateLastfm(state, session) {
+  updateLastfm (state, session) {
     state.lastfm = session;
   },
-  updateShortcut(state, { id, type, shortcut }) {
+  updateShortcut (state, { id, type, shortcut }) {
     let newShortcut = state.settings.shortcuts.find(s => s.id === id);
     newShortcut[type] = shortcut;
     state.settings.shortcuts = state.settings.shortcuts.map(s => {
@@ -67,13 +67,13 @@ export default {
       return newShortcut;
     });
   },
-  restoreDefaultShortcuts(state) {
+  restoreDefaultShortcuts (state) {
     state.settings.shortcuts = cloneDeep(shortcuts);
   },
-  enableScrolling(state, status = null) {
+  enableScrolling (state, status = null) {
     state.enableScrolling = status ? status : !state.enableScrolling;
   },
-  updateTitle(state, title) {
+  updateTitle (state, title) {
     state.title = title;
   },
 };
