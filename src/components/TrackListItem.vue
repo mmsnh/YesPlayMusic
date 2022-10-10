@@ -10,6 +10,7 @@
     <img
       v-if="!isAlbum"
       :src="imgUrl"
+      loading="lazy"
       :class="{ hover: focus }"
       @click="goToAlbum"
     />
@@ -32,6 +33,9 @@
       <div class="container">
         <div class="title">
           {{ track.name }}
+          <span v-if="isSubTitle" :title="subTitle" class="sub-title">
+            ({{ subTitle }})
+          </span>
           <span v-if="isAlbum" class="featured">
             <ArtistsInLine
               :artists="track.ar"
@@ -41,9 +45,6 @@
           <span v-if="isAlbum && track.mark === 1318912" class="explicit-symbol"
             ><ExplicitSymbol
           /></span>
-          <span v-if="isSubTitle" :title="subTitle" class="sub-title">
-            ({{ subTitle }})
-          </span>
         </div>
         <div v-if="!isAlbum" class="artist">
           <span
@@ -208,6 +209,7 @@ export default {
 
   methods: {
     goToAlbum() {
+      if (this.track.al.id === 0) return;
       this.$router.push({ path: '/album/' + this.track.al.id });
     },
     playTrack() {
@@ -272,7 +274,6 @@ button {
   }
 
   .explicit-symbol.before-artist {
-    margin-right: 2px;
     .svg-icon {
       margin-bottom: -3px;
     }
@@ -316,7 +317,8 @@ button {
         opacity: 0.72;
       }
       .sub-title {
-        color: #aeaeae;
+        color: #7a7a7a;
+        opacity: 0.7;
         margin-left: 4px;
       }
     }
@@ -363,6 +365,11 @@ button {
     font-variant-numeric: tabular-nums;
     opacity: 0.88;
     color: var(--color-text);
+  }
+  .count {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 22px;
   }
 }
 
@@ -425,7 +432,8 @@ button {
   }
   .title .featured,
   .artist,
-  .explicit-symbol {
+  .explicit-symbol,
+  .count {
     color: var(--color-primary);
     opacity: 0.88;
   }

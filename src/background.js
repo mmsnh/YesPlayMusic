@@ -7,6 +7,7 @@ import {
   dialog,
   globalShortcut,
   nativeTheme,
+  screen,
 } from 'electron';
 import {
   isWindows,
@@ -14,6 +15,7 @@ import {
   isLinux,
   isDevelopment,
   isCreateTray,
+  isCreateMpris,
 } from '@/utils/platform';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { startNeteaseMusicApi } from './electron/services';
@@ -29,6 +31,7 @@ import { EventEmitter } from 'events';
 import express from 'express';
 import expressProxy from 'express-http-proxy';
 import Store from 'electron-store';
+import { createMpris } from '@/electron/mpris';
 const clc = require('cli-color');
 const log = text => {
   console.log(`${clc.blueBright('[background.js]')} ${text}`);
@@ -63,7 +66,7 @@ const closeOnLinux = (e, win, store) => {
           win.hide(); //调用 最小化实例方法
         } else if (result.response === 1) {
           win = null;
-          app.exit(); //exit()直接关闭客户端，不会执行quit();
+          app.exit(); // exit()直接关闭客户端，不会执行quit();
         }
       })
       .catch(err => {
@@ -113,6 +116,14 @@ class Background {
 
     // handle app events
     this.handleAppEvents();
+
+    // disable chromium mpris
+    if (isCreateMpris) {
+      app.commandLine.appendSwitch(
+        'disable-features',
+        'HardwareMediaKeyHandling,MediaSessionService'
+      );
+    }
   }
 
   async initDevtools() {
@@ -142,7 +153,7 @@ class Background {
 
     const expressApp = express();
     expressApp.use('/', express.static(__dirname + '/'));
-    expressApp.use('/api', expressProxy('http://127.0.0.1:10754'));
+    expressApp.use('/api', expressProxy('http://127.0.0.1:35216'));
     expressApp.use('/player', (req, res) => {
       this.window.webContents
         .executeJavaScript('window.yesplaymusic.player')
@@ -155,7 +166,7 @@ class Background {
           });
         });
     });
-    this.expressApp = expressApp.listen(27232, '127.0.0.1');
+    this.expressApp = expressApp.listen(41342, '127.0.0.1');
   }
 
   createWindow() {
@@ -170,7 +181,10 @@ class Background {
       minWidth: 1080,
       minHeight: 720,
       titleBarStyle: 'hiddenInset',
-      frame: !isWindows,
+      frame: !(
+        isWindows ||
+        (isLinux && this.store.get('settings.linuxEnableCustomTitlebar'))
+      ),
       title: 'YesPlayMusic',
       show: false,
       webPreferences: {
@@ -188,8 +202,42 @@ class Background {
     };
 
     if (this.store.get('window.x') && this.store.get('window.y')) {
-      options.x = this.store.get('window.x');
-      options.y = this.store.get('window.y');
+      let x = this.store.get('window.x');
+      let y = this.store.get('window.y');
+
+      let displays = screen.getAllDisplays();
+      let isResetWindiw = false;
+      if (displays.length === 1) {
+        let { bounds } = displays[0];
+        if (
+          x < bounds.x ||
+          x > bounds.x + bounds.width - 50 ||
+          y < bounds.y ||
+          y > bounds.y + bounds.height - 50
+        ) {
+          isResetWindiw = true;
+        }
+      } else {
+        isResetWindiw = true;
+        for (let i = 0; i < displays.length; i++) {
+          let { bounds } = displays[i];
+          if (
+            x > bounds.x &&
+            x < bounds.x + bounds.width &&
+            y > bounds.y &&
+            y < bounds.y - bounds.height
+          ) {
+            // 检测到APP窗口当前处于一个可用的屏幕里，break
+            isResetWindiw = false;
+            break;
+          }
+        }
+      }
+
+      if (!isResetWindiw) {
+        options.x = x;
+        options.y = y;
+      }
     }
 
     this.window = new BrowserWindow(options);
@@ -209,8 +257,8 @@ class Background {
       createProtocol('app');
       this.window.loadURL(
         showLibraryDefault
-          ? 'http://localhost:27232/#/library'
-          : 'http://localhost:27232'
+          ? 'http://localhost:41342/#/library'
+          : 'http://localhost:41342'
       );
     }
   }
@@ -248,6 +296,7 @@ class Background {
     this.window.once('ready-to-show', () => {
       log('window ready-to-show event');
       this.window.show();
+      this.store.set('window', this.window.getBounds());
     });
 
     this.window.on('close', e => {
@@ -281,6 +330,14 @@ class Background {
 
     this.window.on('moved', () => {
       this.store.set('window', this.window.getBounds());
+    });
+
+    this.window.on('maximize', () => {
+      this.window.webContents.send('isMaximized', true);
+    });
+
+    this.window.on('unmaximize', () => {
+      this.window.webContents.send('isMaximized', false);
     });
 
     this.window.webContents.on('new-window', function (e, url) {
@@ -361,6 +418,11 @@ class Background {
       // register global shortcuts
       if (this.store.get('settings.enableGlobalShortcut') !== false) {
         registerGlobalShortcut(this.window, this.store);
+      }
+
+      // create mpris
+      if (isCreateMpris) {
+        createMpris(this.window);
       }
     });
 
