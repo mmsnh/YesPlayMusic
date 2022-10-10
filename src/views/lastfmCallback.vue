@@ -6,7 +6,7 @@
       <img src="/img/logos/lastfm.png" />
     </div>
     <div class="message">{{ message }}</div>
-    <button v-show="done" @click="close"> 完成 </button>
+    <button v-show="done" @click="close">完成</button>
   </div>
 </template>
 

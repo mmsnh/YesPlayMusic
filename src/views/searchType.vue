@@ -1,9 +1,8 @@
 <template>
   <div v-show="show" class="search">
     <h1>
-      <span>{{ $t('search.searchFor') }} {{ typeNameTable[type] }}</span> "{{
-        keywords
-      }}"
+      <span>{{ $t('search.searchFor') }} {{ typeNameTable[type] }}</span>
+      "{{ keywords }}"
     </h1>
 
     <div v-if="type === 'artists'">
@@ -32,9 +31,9 @@
     </div>
 
     <div class="load-more">
-      <ButtonTwoTone v-show="hasMore" color="grey" @click.native="fetchData">{{
-        $t('explore.loadMore')
-      }}</ButtonTwoTone>
+      <ButtonTwoTone v-show="hasMore" color="grey" @click.native="fetchData">
+        {{ $t('explore.loadMore') }}
+      </ButtonTwoTone>
     </div>
   </div>
 </template>

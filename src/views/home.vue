@@ -4,7 +4,7 @@
       v-if="settings.showPlaylistsByAppleMusic !== false"
       class="index-row first-row"
     >
-      <div class="title"> by Apple Music </div>
+      <div class="title">by Apple Music</div>
       <CoverRow
         :type="'playlist'"
         :items="byAppleMusic"
@@ -15,9 +15,9 @@
     <div class="index-row">
       <div class="title">
         {{ $t('home.recommendPlaylist') }}
-        <router-link to="/explore?category=推荐歌单">{{
-          $t('home.seeMore')
-        }}</router-link>
+        <router-link to="/explore?category=推荐歌单">
+          {{ $t('home.seeMore') }}
+        </router-link>
       </div>
       <CoverRow
         :type="'playlist'"
@@ -26,7 +26,7 @@
       />
     </div>
     <div class="index-row">
-      <div class="title"> For You </div>
+      <div class="title">For You</div>
       <div class="for-you-row">
         <DailyTracksCard ref="DailyTracksCard" />
         <FMCard />
@@ -54,9 +54,9 @@
     <div class="index-row">
       <div class="title">
         {{ $t('home.charts') }}
-        <router-link to="/explore?category=排行榜">{{
-          $t('home.seeMore')
-        }}</router-link>
+        <router-link to="/explore?category=排行榜">
+          {{ $t('home.seeMore') }}
+        </router-link>
       </div>
       <CoverRow
         type="playlist"

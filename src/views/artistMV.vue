@@ -5,13 +5,14 @@
         class="avatar"
         :src="artist.img1v1Url | resizeImage(1024)"
         loading="lazy"
-      />{{ artist.name }}'s Music Videos
+      />
+      {{ artist.name }}'s Music Videos
     </h1>
     <MvRow :mvs="mvs" subtitle="publishTime" />
     <div class="load-more">
-      <ButtonTwoTone v-show="hasMore" color="grey" @click.native="loadMVs">{{
-        $t('explore.loadMore')
-      }}</ButtonTwoTone>
+      <ButtonTwoTone v-show="hasMore" color="grey" @click.native="loadMVs">
+        {{ $t('explore.loadMore') }}
+      </ButtonTwoTone>
     </div>
   </div>
 </template>

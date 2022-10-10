@@ -43,8 +43,8 @@
                 :key="ar.id"
                 @click="ar.id && goToArtist(ar.id)"
               >
-                <span :class="{ ar: ar.id }"> {{ ar.name }} </span
-                ><span v-if="index !== currentTrack.ar.length - 1">, </span>
+                <span :class="{ ar: ar.id }">{{ ar.name }}</span>
+                <span v-if="index !== currentTrack.ar.length - 1">,</span>
               </span>
             </div>
           </div>
@@ -77,24 +77,26 @@
             v-show="!player.isPersonalFM"
             :title="$t('player.previous')"
             @click.native="playPrevTrack"
-            ><svg-icon icon-class="previous"
-          /></button-icon>
+          >
+            <svg-icon icon-class="previous" />
+          </button-icon>
           <button-icon
             v-show="player.isPersonalFM"
             title="不喜欢"
             @click.native="moveToFMTrash"
-            ><svg-icon icon-class="thumbs-down"
-          /></button-icon>
+          >
+            <svg-icon icon-class="thumbs-down" />
+          </button-icon>
           <button-icon
             class="play"
             :title="$t(player.playing ? 'player.pause' : 'player.play')"
             @click.native="playOrPause"
           >
-            <svg-icon :icon-class="player.playing ? 'pause' : 'play'"
-          /></button-icon>
-          <button-icon :title="$t('player.next')" @click.native="playNextTrack"
-            ><svg-icon icon-class="next"
-          /></button-icon>
+            <svg-icon :icon-class="player.playing ? 'pause' : 'play'" />
+          </button-icon>
+          <button-icon :title="$t('player.next')" @click.native="playNextTrack">
+            <svg-icon icon-class="next" />
+          </button-icon>
         </div>
         <div class="blank"></div>
       </div>
@@ -108,8 +110,9 @@
               disabled: player.isPersonalFM,
             }"
             @click.native="goToNextTracksPage"
-            ><svg-icon icon-class="list"
-          /></button-icon>
+          >
+            <svg-icon icon-class="list" />
+          </button-icon>
           <button-icon
             :class="{
               active: player.repeatMode !== 'off',
@@ -135,15 +138,17 @@
             :class="{ active: player.shuffle, disabled: player.isPersonalFM }"
             :title="$t('player.shuffle')"
             @click.native="switchShuffle"
-            ><svg-icon icon-class="shuffle"
-          /></button-icon>
+          >
+            <svg-icon icon-class="shuffle" />
+          </button-icon>
           <button-icon
             v-if="settings.enableReversedMode"
             :class="{ active: player.reversed, disabled: player.isPersonalFM }"
             :title="$t('player.reversed')"
             @click.native="switchReversed"
-            ><svg-icon icon-class="sort-up"
-          /></button-icon>
+          >
+            <svg-icon icon-class="sort-up" />
+          </button-icon>
           <div class="volume-control">
             <button-icon :title="$t('player.mute')" @click.native="mute">
               <svg-icon v-show="volume > 0.5" icon-class="volume" />
@@ -172,8 +177,9 @@
             title="歌词"
             style="margin-left: 12px"
             @click.native="toggleLyrics"
-            ><svg-icon icon-class="arrow-up"
-          /></button-icon>
+          >
+            <svg-icon icon-class="arrow-up" />
+          </button-icon>
         </div>
       </div>
     </div>

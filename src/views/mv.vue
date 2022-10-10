@@ -6,9 +6,9 @@
       </div>
       <div class="video-info">
         <div class="title">
-          <router-link :to="'/artist/' + mv.data.artistId">{{
-            mv.data.artistName
-          }}</router-link>
+          <router-link :to="'/artist/' + mv.data.artistId">
+            {{ mv.data.artistName }}
+          </router-link>
           -
           {{ mv.data.name }}
           <div class="buttons">
@@ -32,12 +32,12 @@
       <MvRow :mvs="simiMvs" />
     </div>
     <ContextMenu ref="mvMenu">
-      <div class="item" @click="copyUrl(mv.data.id)">{{
-        $t('contextMenu.copyUrl')
-      }}</div>
-      <div class="item" @click="openInBrowser(mv.data.id)">{{
-        $t('contextMenu.openInBrowser')
-      }}</div>
+      <div class="item" @click="copyUrl(mv.data.id)">
+        {{ $t('contextMenu.copyUrl') }}
+      </div>
+      <div class="item" @click="openInBrowser(mv.data.id)">
+        {{ $t('contextMenu.openInBrowser') }}
+      </div>
     </ContextMenu>
   </div>
 </template>

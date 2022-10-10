@@ -8,9 +8,10 @@
     width="25vw"
   >
     <template slot="default">
-      <div class="new-playlist-button" @click="newPlaylist"
-        ><svg-icon icon-class="plus" />新建歌单</div
-      >
+      <div class="new-playlist-button" @click="newPlaylist">
+        <svg-icon icon-class="plus" />
+        新建歌单
+      </div>
       <div
         v-for="playlist in ownPlaylists"
         :key="playlist.id"

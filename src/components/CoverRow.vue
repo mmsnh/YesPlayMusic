@@ -14,19 +14,18 @@
       />
       <div class="text">
         <div v-if="showPlayCount" class="info">
-          <span class="play-count"
-            ><svg-icon icon-class="play" />{{
-              item.playCount | formatPlayCount
-            }}
+          <span class="play-count">
+            <svg-icon icon-class="play" />
+            {{ item.playCount | formatPlayCount }}
           </span>
         </div>
         <div class="title" :style="{ fontSize: subTextFontSize }">
-          <span v-if="isExplicit(item)" class="explicit-symbol"
-            ><ExplicitSymbol
-          /></span>
+          <span v-if="isExplicit(item)" class="explicit-symbol">
+            <ExplicitSymbol />
+          </span>
           <span v-if="isPrivacy(item)" class="lock-icon">
-            <svg-icon icon-class="lock"
-          /></span>
+            <svg-icon icon-class="lock" />
+          </span>
           <router-link :to="getTitleLink(item)">{{ item.name }}</router-link>
         </div>
         <div v-if="type !== 'artist' && subText !== 'none'" class="info">

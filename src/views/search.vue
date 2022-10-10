@@ -2,12 +2,12 @@
   <div v-show="show" class="search-page">
     <div v-show="artists.length > 0 || albums.length > 0" class="row">
       <div v-show="artists.length > 0" class="artists">
-        <div v-show="artists.length > 0" class="section-title"
-          >{{ $t('search.artist')
-          }}<router-link :to="`/search/${keywords}/artists`">{{
-            $t('home.seeMore')
-          }}</router-link></div
-        >
+        <div v-show="artists.length > 0" class="section-title">
+          {{ $t('search.artist') }}
+          <router-link :to="`/search/${keywords}/artists`">
+            {{ $t('home.seeMore') }}
+          </router-link>
+        </div>
         <CoverRow
           type="artist"
           :column-number="3"
@@ -17,12 +17,12 @@
       </div>
 
       <div class="albums">
-        <div v-show="albums.length > 0" class="section-title"
-          >{{ $t('search.album')
-          }}<router-link :to="`/search/${keywords}/albums`">{{
-            $t('home.seeMore')
-          }}</router-link></div
-        >
+        <div v-show="albums.length > 0" class="section-title">
+          {{ $t('search.album') }}
+          <router-link :to="`/search/${keywords}/albums`">
+            {{ $t('home.seeMore') }}
+          </router-link>
+        </div>
         <CoverRow
           type="album"
           :items="albums.slice(0, 3)"
@@ -36,32 +36,32 @@
     </div>
 
     <div v-show="tracks.length > 0" class="tracks">
-      <div class="section-title"
-        >{{ $t('search.song')
-        }}<router-link :to="`/search/${keywords}/tracks`">{{
-          $t('home.seeMore')
-        }}</router-link></div
-      >
+      <div class="section-title">
+        {{ $t('search.song') }}
+        <router-link :to="`/search/${keywords}/tracks`">
+          {{ $t('home.seeMore') }}
+        </router-link>
+      </div>
       <TrackList :tracks="tracks" type="tracklist" />
     </div>
 
     <div v-show="musicVideos.length > 0" class="music-videos">
-      <div class="section-title"
-        >{{ $t('search.mv')
-        }}<router-link :to="`/search/${keywords}/music-videos`">{{
-          $t('home.seeMore')
-        }}</router-link></div
-      >
+      <div class="section-title">
+        {{ $t('search.mv') }}
+        <router-link :to="`/search/${keywords}/music-videos`">
+          {{ $t('home.seeMore') }}
+        </router-link>
+      </div>
       <MvRow :mvs="musicVideos.slice(0, 5)" />
     </div>
 
     <div v-show="playlists.length > 0" class="playlists">
-      <div class="section-title"
-        >{{ $t('search.playlist')
-        }}<router-link :to="`/search/${keywords}/playlists`">{{
-          $t('home.seeMore')
-        }}</router-link></div
-      >
+      <div class="section-title">
+        {{ $t('search.playlist') }}
+        <router-link :to="`/search/${keywords}/playlists`">
+          {{ $t('home.seeMore') }}
+        </router-link>
+      </div>
       <CoverRow
         type="playlist"
         :items="playlists.slice(0, 12)"
@@ -74,12 +74,10 @@
     </div>
 
     <div v-show="!haveResult" class="no-results">
-      <div
-        ><svg-icon icon-class="search" />
-        {{
-          keywords.length === 0 ? '输入关键字搜索' : $t('search.noResult')
-        }}</div
-      >
+      <div>
+        <svg-icon icon-class="search" />
+        {{ keywords.length === 0 ? '输入关键字搜索' : $t('search.noResult') }}
+      </div>
     </div>
   </div>
 </template>

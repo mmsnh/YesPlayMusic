@@ -13,7 +13,8 @@
           class="play-button"
           :style="playButtonStyles"
           @click.stop="play()"
-          ><svg-icon icon-class="play" />
+        >
+          <svg-icon icon-class="play" />
         </button>
       </div>
       <img :src="imageUrl" :style="imageStyles" loading="lazy" />

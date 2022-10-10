@@ -17,11 +17,12 @@
         @click.right.native="openMenu"
       />
       <div class="info">
-        <div class="title" @click.right="openMenu"
-          ><span v-if="playlist.privacy === 10" class="lock-icon">
-            <svg-icon icon-class="lock" /> </span
-          >{{ playlist.name }}</div
-        >
+        <div class="title" @click.right="openMenu">
+          <span v-if="playlist.privacy === 10" class="lock-icon">
+            <svg-icon icon-class="lock" />
+          </span>
+          {{ playlist.name }}
+        </div>
         <div class="artist">
           Playlist by
           <span
@@ -35,14 +36,16 @@
               ].includes(playlist.id)
             "
             style="font-weight: 600"
-            >Apple Music</span
           >
+            Apple Music
+          </span>
           <a
             v-else
             :href="`https://music.163.com/#/user/home?id=${playlist.creator.userId}`"
             target="blank"
-            >{{ playlist.creator.nickname }}</a
           >
+            {{ playlist.creator.nickname }}
+          </a>
         </div>
         <div class="date-and-count">
           {{ $t('playlist.updatedAt') }}
@@ -67,16 +70,14 @@
               playlist.subscribed ? 'var(--color-secondary-bg)' : ''
             "
             @click.native="likePlaylist"
-          >
-          </ButtonTwoTone>
+          ></ButtonTwoTone>
           <ButtonTwoTone
             icon-class="more"
             :icon-button="true"
             :horizontal-padding="0"
             color="grey"
             @click.native="openMenu"
-          >
-          </ButtonTwoTone>
+          ></ButtonTwoTone>
         </div>
       </div>
       <div v-if="displaySearchInPlaylist" class="search-box">
@@ -104,8 +105,8 @@
         <!-- <img :src="playlist.coverImgUrl | resizeImage" /> -->
         {{ specialPlaylistInfo.name }}
       </div>
-      <div class="subtitle"
-        >{{ playlist.englishTitle }} · {{ playlist.updateFrequency }}
+      <div class="subtitle">
+        {{ playlist.englishTitle }} · {{ playlist.updateFrequency }}
       </div>
 
       <div class="buttons">
@@ -128,16 +129,14 @@
             playlist.subscribed ? 'var(--color-secondary-bg)' : ''
           "
           @click.native="likePlaylist"
-        >
-        </ButtonTwoTone>
+        ></ButtonTwoTone>
         <ButtonTwoTone
           icon-class="more"
           :icon-button="true"
           :horizontal-padding="0"
           color="grey"
           @click.native="openMenu"
-        >
-        </ButtonTwoTone>
+        ></ButtonTwoTone>
       </div>
     </div>
 
@@ -183,8 +182,9 @@
         color="grey"
         :loading="loadingMore"
         @click.native="loadMore(100)"
-        >{{ $t('explore.loadMore') }}</ButtonTwoTone
       >
+        {{ $t('explore.loadMore') }}
+      </ButtonTwoTone>
     </div>
 
     <Modal
@@ -193,31 +193,36 @@
       :show-footer="false"
       :click-outside-hide="true"
       title="歌单介绍"
-      >{{ playlist.description }}</Modal
     >
+      {{ playlist.description }}
+    </Modal>
 
     <ContextMenu ref="playlistMenu">
       <!-- <div class="item">{{ $t('contextMenu.addToQueue') }}</div> -->
-      <div class="item" @click="likePlaylist(true)">{{
-        playlist.subscribed
-          ? $t('contextMenu.removeFromLibrary')
-          : $t('contextMenu.saveToLibrary')
-      }}</div>
-      <div class="item" @click="searchInPlaylist()">{{
-        $t('contextMenu.searchInPlaylist')
-      }}</div>
+      <div class="item" @click="likePlaylist(true)">
+        {{
+          playlist.subscribed
+            ? $t('contextMenu.removeFromLibrary')
+            : $t('contextMenu.saveToLibrary')
+        }}
+      </div>
+      <div class="item" @click="searchInPlaylist()">
+        {{ $t('contextMenu.searchInPlaylist') }}
+      </div>
       <div
         v-if="playlist.creator.userId === data.user.userId"
         class="item"
         @click="editPlaylist"
-        >编辑歌单信息</div
       >
+        编辑歌单信息
+      </div>
       <div
         v-if="playlist.creator.userId === data.user.userId"
         class="item"
         @click="deletePlaylist"
-        >删除歌单</div
       >
+        删除歌单
+      </div>
     </ContextMenu>
   </div>
 </template>

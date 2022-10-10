@@ -6,8 +6,8 @@
       type="playlist"
       dbclick-track-func="none"
     />
-    <h1 v-show="playNextList.length > 0"
-      >插队播放
+    <h1 v-show="playNextList.length > 0">
+      插队播放
       <button @click="player.clearPlayNextList()">清除队列</button>
     </h1>
     <TrackList

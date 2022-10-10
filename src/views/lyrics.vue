@@ -52,7 +52,8 @@
                     v-if="hasList()"
                     :to="`${getListPath()}`"
                     @click.native="toggleLyrics"
-                    >{{ currentTrack.name }}
+                  >
+                    {{ currentTrack.name }}
                   </router-link>
                   <span v-else>
                     {{ currentTrack.name }}
@@ -63,7 +64,8 @@
                     v-if="artist.id !== 0"
                     :to="`/artist/${artist.id}`"
                     @click.native="toggleLyrics"
-                    >{{ artist.name }}
+                  >
+                    {{ artist.name }}
                   </router-link>
                   <span v-else>
                     {{ artist.name }}
@@ -74,7 +76,8 @@
                       :to="`/album/${album.id}`"
                       :title="album.name"
                       @click.native="toggleLyrics"
-                      >{{ album.name }}
+                    >
+                      {{ album.name }}
                     </router-link>
                   </span>
                 </div>
@@ -234,8 +237,9 @@
                     $store.state.settings.showLyricsTranslation
                   "
                   class="translation"
-                  >{{ line.contents[1] }}</span
                 >
+                  {{ line.contents[1] }}
+                </span>
               </div>
             </div>
           </div>

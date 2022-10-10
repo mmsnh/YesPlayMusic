@@ -32,8 +32,9 @@
               active: settings.enabledPlaylistCategories.includes(cat.name),
             }"
             @click="toggleCat(cat.name)"
-            ><span>{{ cat.name }}</span></div
           >
+            <span>{{ cat.name }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -57,8 +58,9 @@
         color="grey"
         :loading="loadingMore"
         @click.native="getPlaylist"
-        >{{ $t('explore.loadMore') }}</ButtonTwoTone
       >
+        {{ $t('explore.loadMore') }}
+      </ButtonTwoTone>
     </div>
   </div>
 </template>

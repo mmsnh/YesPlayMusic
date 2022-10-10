@@ -3,9 +3,9 @@
     <div class="modal" :style="modalStyles" @click.stop>
       <div class="header">
         <div class="title">{{ title }}</div>
-        <button class="close" @click="close"
-          ><svg-icon icon-class="x"
-        /></button>
+        <button class="close" @click="close">
+          <svg-icon icon-class="x" />
+        </button>
       </div>
       <div class="content"><slot></slot></div>
       <div v-if="showFooter" class="footer">

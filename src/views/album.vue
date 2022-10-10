@@ -14,28 +14,28 @@
         @click.right.native="openMenu"
       />
       <div class="info">
-        <div class="title" @click.right="openMenu"> {{ title }}</div>
-        <div v-if="subtitle !== ''" class="subtitle" @click.right="openMenu">{{
-          subtitle
-        }}</div>
+        <div class="title" @click.right="openMenu">{{ title }}</div>
+        <div v-if="subtitle !== ''" class="subtitle" @click.right="openMenu">
+          {{ subtitle }}
+        </div>
         <div class="artist">
           <span v-if="album.artist.id !== 104700">
-            <span>{{ album.type | formatAlbumType(album) }} by </span
-            ><router-link :to="`/artist/${album.artist.id}`">{{
-              album.artist.name
-            }}</router-link></span
-          >
+            <span>{{ album.type | formatAlbumType(album) }} by</span>
+            <router-link :to="`/artist/${album.artist.id}`">
+              {{ album.artist.name }}
+            </router-link>
+          </span>
           <span v-else>Compilation by Various Artists</span>
         </div>
         <div class="date-and-count">
-          <span v-if="album.mark === 1056768" class="explicit-symbol"
-            ><ExplicitSymbol
-          /></span>
-          <span :title="album.publishTime | formatDate">{{
-            new Date(album.publishTime).getFullYear()
-          }}</span>
-          <span> · {{ album.size }} {{ $t('common.songs') }}</span
-          >,
+          <span v-if="album.mark === 1056768" class="explicit-symbol">
+            <ExplicitSymbol />
+          </span>
+          <span :title="album.publishTime | formatDate">
+            {{ new Date(album.publishTime).getFullYear() }}
+          </span>
+          <span>· {{ album.size }} {{ $t('common.songs') }}</span>
+          ,
           {{ albumTime | formatTime('Human') }}
         </div>
         <div class="description" @click="toggleFullDescription">
@@ -58,16 +58,14 @@
               dynamicDetail.isSub ? 'var(--color-secondary-bg)' : ''
             "
             @click.native="likeAlbum"
-          >
-          </ButtonTwoTone>
+          ></ButtonTwoTone>
           <ButtonTwoTone
             icon-class="more"
             :icon-button="true"
             :horizontal-padding="0"
             color="grey"
             @click.native="openMenu"
-          >
-          </ButtonTwoTone>
+          ></ButtonTwoTone>
         </div>
       </div>
     </div>
@@ -103,8 +101,8 @@
     <div v-if="filteredMoreAlbums.length !== 0" class="more-by">
       <div class="section-title">
         More by
-        <router-link :to="`/artist/${album.artist.id}`"
-          >{{ album.artist.name }}
+        <router-link :to="`/artist/${album.artist.id}`">
+          {{ album.artist.name }}
         </router-link>
       </div>
       <div>
@@ -128,18 +126,20 @@
     </Modal>
     <ContextMenu ref="albumMenu">
       <!-- <div class="item">{{ $t('contextMenu.addToQueue') }}</div> -->
-      <div class="item" @click="likeAlbum(true)">{{
-        dynamicDetail.isSub
-          ? $t('contextMenu.removeFromLibrary')
-          : $t('contextMenu.saveToLibrary')
-      }}</div>
+      <div class="item" @click="likeAlbum(true)">
+        {{
+          dynamicDetail.isSub
+            ? $t('contextMenu.removeFromLibrary')
+            : $t('contextMenu.saveToLibrary')
+        }}
+      </div>
       <div class="item">{{ $t('contextMenu.addToPlaylist') }}</div>
-      <div class="item" @click="copyUrl(album.id)">{{
-        $t('contextMenu.copyUrl')
-      }}</div>
-      <div class="item" @click="openInBrowser(album.id)">{{
-        $t('contextMenu.openInBrowser')
-      }}</div>
+      <div class="item" @click="copyUrl(album.id)">
+        {{ $t('contextMenu.copyUrl') }}
+      </div>
+      <div class="item" @click="openInBrowser(album.id)">
+        {{ $t('contextMenu.openInBrowser') }}
+      </div>
     </ContextMenu>
   </div>
 </template>

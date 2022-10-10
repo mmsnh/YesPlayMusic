@@ -28,7 +28,10 @@
             <svg-icon icon-class="next" />
           </button-icon>
         </div>
-        <div class="card-name"><svg-icon icon-class="fm" />私人FM</div>
+        <div class="card-name">
+          <svg-icon icon-class="fm" />
+          私人FM
+        </div>
       </div>
     </div>
   </div>

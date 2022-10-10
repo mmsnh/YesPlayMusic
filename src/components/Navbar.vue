@@ -4,27 +4,29 @@
       <Win32Titlebar v-if="enableWin32Titlebar" />
       <LinuxTitlebar v-if="enableLinuxTitlebar" />
       <div class="navigation-buttons">
-        <button-icon @click.native="go('back')"
-          ><svg-icon icon-class="arrow-left"
-        /></button-icon>
-        <button-icon @click.native="go('forward')"
-          ><svg-icon icon-class="arrow-right"
-        /></button-icon>
+        <button-icon @click.native="go('back')">
+          <svg-icon icon-class="arrow-left" />
+        </button-icon>
+        <button-icon @click.native="go('forward')">
+          <svg-icon icon-class="arrow-right" />
+        </button-icon>
       </div>
       <div class="navigation-links">
-        <router-link to="/" :class="{ active: $route.name === 'home' }">{{
-          $t('nav.home')
-        }}</router-link>
+        <router-link to="/" :class="{ active: $route.name === 'home' }">
+          {{ $t('nav.home') }}
+        </router-link>
         <router-link
           to="/explore"
           :class="{ active: $route.name === 'explore' }"
-          >{{ $t('nav.explore') }}</router-link
         >
+          {{ $t('nav.explore') }}
+        </router-link>
         <router-link
           to="/library"
           :class="{ active: $route.name === 'library' }"
-          >{{ $t('nav.library') }}</router-link
         >
+          {{ $t('nav.library') }}
+        </router-link>
       </div>
       <div class="right-part">
         <div class="search-box">

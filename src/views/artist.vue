@@ -8,17 +8,17 @@
         <div class="name">{{ artist.name }}</div>
         <div class="artist">{{ $t('artist.artist') }}</div>
         <div class="statistics">
-          <a @click="scrollTo('popularTracks')"
-            >{{ artist.musicSize }} {{ $t('common.songs') }}</a
-          >
+          <a @click="scrollTo('popularTracks')">
+            {{ artist.musicSize }} {{ $t('common.songs') }}
+          </a>
           ·
-          <a @click="scrollTo('seeMore', 'start')"
-            >{{ artist.albumSize }} {{ $t('artist.withAlbums') }}</a
-          >
+          <a @click="scrollTo('seeMore', 'start')">
+            {{ artist.albumSize }} {{ $t('artist.withAlbums') }}
+          </a>
           ·
-          <a @click="scrollTo('mvs')"
-            >{{ artist.mvSize }} {{ $t('artist.videos') }}</a
-          >
+          <a @click="scrollTo('mvs')">
+            {{ artist.mvSize }} {{ $t('artist.videos') }}
+          </a>
         </div>
         <div class="description" @click="toggleFullDescription">
           {{ artist.briefDesc }}
@@ -37,8 +37,7 @@
             :horizontal-padding="0"
             color="grey"
             @click.native="openMenu"
-          >
-          </ButtonTwoTone>
+          ></ButtonTwoTone>
         </div>
       </div>
     </div>
@@ -55,9 +54,9 @@
           />
           <div class="info">
             <div class="name">
-              <router-link :to="`/album/${latestRelease.id}`">{{
-                latestRelease.name
-              }}</router-link>
+              <router-link :to="`/album/${latestRelease.id}`">
+                {{ latestRelease.name }}
+              </router-link>
             </div>
             <div class="date">
               {{ latestRelease.publishTime | formatDate }}
@@ -88,9 +87,9 @@
           </div>
           <div class="info">
             <div class="name">
-              <router-link :to="'/mv/' + latestMV.id">{{
-                latestMV.name
-              }}</router-link>
+              <router-link :to="'/mv/' + latestMV.id">
+                {{ latestMV.name }}
+              </router-link>
             </div>
             <div class="date">
               {{ latestMV.publishTime | formatDate }}
@@ -125,11 +124,11 @@
       />
     </div>
     <div v-if="mvs.length !== 0" id="mvs" class="mvs">
-      <div class="section-title"
-        >MVs
-        <router-link v-show="hasMoreMV" :to="`/artist/${artist.id}/mv`">{{
-          $t('home.seeMore')
-        }}</router-link>
+      <div class="section-title">
+        MVs
+        <router-link v-show="hasMoreMV" :to="`/artist/${artist.id}/mv`">
+          {{ $t('home.seeMore') }}
+        </router-link>
       </div>
       <MvRow :mvs="mvs" subtitle="publishTime" />
     </div>
@@ -166,12 +165,12 @@
     </Modal>
 
     <ContextMenu ref="artistMenu">
-      <div class="item" @click="copyUrl(artist.id)">{{
-        $t('contextMenu.copyUrl')
-      }}</div>
-      <div class="item" @click="openInBrowser(artist.id)">{{
-        $t('contextMenu.openInBrowser')
-      }}</div>
+      <div class="item" @click="copyUrl(artist.id)">
+        {{ $t('contextMenu.copyUrl') }}
+      </div>
+      <div class="item" @click="openInBrowser(artist.id)">
+        {{ $t('contextMenu.openInBrowser') }}
+      </div>
     </ContextMenu>
   </div>
 </template>

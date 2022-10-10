@@ -5,7 +5,8 @@
         class="avatar"
         :src="data.user.avatarUrl | resizeImage"
         loading="lazy"
-      />{{ data.user.nickname }}{{ $t('library.sLibrary') }}
+      />
+      {{ data.user.nickname }}{{ $t('library.sLibrary') }}
     </h1>
     <div class="section-one">
       <div class="liked-songs" @click="goToLikedSongsList">
@@ -15,8 +16,10 @@
               v-for="(line, index) in pickedLyric"
               v-show="line !== ''"
               :key="`${line}${index}`"
-              >{{ line }}<br
-            /></span>
+            >
+              {{ line }}
+              <br />
+            </span>
           </p>
         </div>
         <div class="bottom">
@@ -50,16 +53,18 @@
             :class="{ active: currentTab === 'playlists' }"
             @click="updateCurrentTab('playlists')"
           >
-            <span class="text">{{
-              {
-                all: $t('contextMenu.allPlaylists'),
-                mine: $t('contextMenu.minePlaylists'),
-                liked: $t('contextMenu.likedPlaylists'),
-              }[playlistFilter]
-            }}</span>
-            <span class="icon" @click.stop="openPlaylistTabMenu"
-              ><svg-icon icon-class="dropdown"
-            /></span>
+            <span class="text">
+              {{
+                {
+                  all: $t('contextMenu.allPlaylists'),
+                  mine: $t('contextMenu.minePlaylists'),
+                  liked: $t('contextMenu.likedPlaylists'),
+                }[playlistFilter]
+              }}
+            </span>
+            <span class="icon" @click.stop="openPlaylistTabMenu">
+              <svg-icon icon-class="dropdown" />
+            </span>
           </div>
           <div
             class="tab"
@@ -101,13 +106,17 @@
           v-show="currentTab === 'playlists'"
           class="tab-button"
           @click="openAddPlaylistModal"
-          ><svg-icon icon-class="plus" />{{ $t('library.newPlayList') }}
+        >
+          <svg-icon icon-class="plus" />
+          {{ $t('library.newPlayList') }}
         </button>
         <button
           v-show="currentTab === 'cloudDisk'"
           class="tab-button"
           @click="selectUploadFiles"
-          ><svg-icon icon-class="arrow-up-alt" />{{ $t('library.uploadSongs') }}
+        >
+          <svg-icon icon-class="arrow-up-alt" />
+          {{ $t('library.uploadSongs') }}
         </button>
       </div>
 
@@ -189,26 +198,26 @@
     />
 
     <ContextMenu ref="playlistTabMenu">
-      <div class="item" @click="changePlaylistFilter('all')">{{
-        $t('contextMenu.allPlaylists')
-      }}</div>
+      <div class="item" @click="changePlaylistFilter('all')">
+        {{ $t('contextMenu.allPlaylists') }}
+      </div>
       <hr />
-      <div class="item" @click="changePlaylistFilter('mine')">{{
-        $t('contextMenu.minePlaylists')
-      }}</div>
-      <div class="item" @click="changePlaylistFilter('liked')">{{
-        $t('contextMenu.likedPlaylists')
-      }}</div>
+      <div class="item" @click="changePlaylistFilter('mine')">
+        {{ $t('contextMenu.minePlaylists') }}
+      </div>
+      <div class="item" @click="changePlaylistFilter('liked')">
+        {{ $t('contextMenu.likedPlaylists') }}
+      </div>
     </ContextMenu>
 
     <ContextMenu ref="playModeTabMenu">
-      <div class="item" @click="playLikedSongs">{{
-        $t('library.likedSongs')
-      }}</div>
+      <div class="item" @click="playLikedSongs">
+        {{ $t('library.likedSongs') }}
+      </div>
       <hr />
-      <div class="item" @click="playIntelligenceList">{{
-        $t('contextMenu.cardiacMode')
-      }}</div>
+      <div class="item" @click="playIntelligenceList">
+        {{ $t('contextMenu.cardiacMode') }}
+      </div>
     </ContextMenu>
   </div>
 </template>
