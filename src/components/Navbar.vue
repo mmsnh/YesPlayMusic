@@ -160,7 +160,9 @@ export default {
       this.$router.push({ name: 'settings' });
     },
     toGitHub() {
-      window.open('https://github.com/qier222/YesPlayMusic');
+      window.open('https://github.com/xkloveme/YesPlayMusic');
+      /*eslint no-undef: 0*/
+      utools.shellOpenExternal('https://github.com/xkloveme/YesPlayMusic');
     },
     toLogin() {
       if (process.env.IS_ELECTRON === true) {

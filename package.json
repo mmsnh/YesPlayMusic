@@ -1,12 +1,14 @@
 {
   "name": "yesplaymusic",
   "version": "0.4.5",
-  "private": true,
+  "private": false,
   "description": "A third party music player for Netease Music",
-  "author": "qier222<qier222@outlook.com>",
+  "author": "xkloveme<xkloveme@gmail.com>",
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:utools": "vue-cli-service build --mode utools",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build -p never",
     "electron:build-all": "vue-cli-service electron:build -p never -mwl",
@@ -86,7 +88,6 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.9.0",
-    "husky": "^4.3.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
     "vue-cli-plugin-electron-builder": "~2.1.1",
@@ -116,17 +117,17 @@
       "ipcRenderer": "off"
     },
     "rules": {
-      "vue/no-v-html":"off"
+      "vue/no-v-html":"off",
+      "linebreak-style": [
+        0,
+        "error",
+        "windows"
+      ]
     }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier"
-    }
-  }
+  ]
 }

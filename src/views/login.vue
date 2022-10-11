@@ -1,9 +1,9 @@
 <template>
   <div class="login">
     <div class="section-1">
-      <img src="/img/logos/yesplaymusic.png" />
+      <img src="https://www.helloimg.com/images/2022/10/11/ZgASqb.png" />
       <svg-icon icon-class="x"></svg-icon>
-      <img src="/img/logos/netease-music.png" />
+      <img src="https://www.helloimg.com/images/2022/10/11/ZgAiWo.png" />
     </div>
     <div class="section-2">
       <div
@@ -74,7 +74,7 @@ export default {
 }
 
 .section-1 {
-  margin-bottom: 16px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   img {

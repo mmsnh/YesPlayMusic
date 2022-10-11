@@ -5,6 +5,10 @@ import { isLooseLoggedIn, isAccountLoggedIn } from '@/utils/auth';
 Vue.use(VueRouter);
 const routes = [
   {
+    path: '*',
+    redirect: '/',
+  },
+  {
     path: '/',
     name: 'home',
     component: () => import('@/views/home.vue'),

@@ -42,19 +42,18 @@ service.interceptors.request.use(function (config) {
   if (['HTTP', 'HTTPS'].includes(proxy.protocol)) {
     config.params.proxy = `${proxy.protocol}://${proxy.server}:${proxy.port}`;
   }
-
   return config;
 });
 
 service.interceptors.response.use(
   response => {
-    const res = response.data;
+    const res = response.data || {};
     return res;
   },
   async error => {
     /** @type {import('axios').AxiosResponse | null} */
     const response = error.response;
-    const data = response.data;
+    const data = response?.data || {};
 
     if (
       response &&

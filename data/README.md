@@ -17,16 +17,6 @@
 
 [![Library][library-screenshot]](https://music.jixiaokang.com)
 
-## 🙉 说明
-
-[网页版https://music.jixiaokang.com](https://music.jixiaokang.com) 此版国内可访问
-
-> 此版本是`yesplaymusic`专为`utools`打造,是基于`yesplaymusic`的二次开发,内容均是网易云音乐合规,并无侵权音乐,如有侵权请联系我
-
-> 此版来源,因为Vercel部署被墙,导致很多用户没办法范围网页版,故做utool插件
-
-
-
 ## ✨ 特性
 
 - ✅ 使用 Vue.js 全家桶开发
@@ -48,19 +38,6 @@
 - ⌨️ 自定义快捷键和全局快捷键
 - 🎧 支持 Mpris
 - 🛠 更多特性开发中
-
-## 发电
-
-> **谨慎如果您觉得不错,请帮助开发者喝杯咖啡 ☕️,一分也是情一分也是爱 ❤️ 当然您的鼓励会让我走的更远.**
-
-![UpeRIA.jpg](https://s1.ax1x.com/2020/07/05/UpeRIA.jpg)
-
-## 关注我
-
-觉得不错的话给个`star`
-
-- [小康之家](https://www.jixiaokang.com)
-- [xkloveme](https://github.com/xkloveme)
 
 ## 📦️ 安装
 

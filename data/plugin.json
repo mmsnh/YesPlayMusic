@@ -1,0 +1,24 @@
+{
+  "pluginName": "YesPlayMusic",
+  "description": "一款基于网易云音乐的高颜值版本音乐播放器",
+  "version": "1.0.0",
+  "main": "dist/index.html",
+  "preload": "preload.js",
+  "author": "xkloveme",
+  "homepage": "https://github.com/xkloveme",
+  "logo": "yesplaymusic.png",
+  "features": [
+    {
+      "code": "music",
+      "explain": "音乐播放器",
+      "cmds": ["ypm", "ms", "music", "YesPlayMusic", "网易云", "播放器","音乐",
+        {
+          "type": "regex",
+          "label": "YesPlayMusic",
+          "match": "/[a-zA-Z\u4e00-\u9fa5]/gm",
+          "minLength": 0
+      }],
+      "icon": "yesplaymusic.png"
+    }
+  ]
+}

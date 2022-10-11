@@ -104,8 +104,9 @@ export default {
       return byAppleMusic;
     },
   },
-  activated() {
+  mounted() {
     this.loadData();
+    console.log('home');
     this.$parent.$refs.scrollbar.restorePosition();
   },
   methods: {

@@ -1,21 +1,24 @@
 const webpack = require('webpack');
 const path = require('path');
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir);
 }
 
 module.exports = {
   // 生产环境打包不输出 map
+  // 根路径 默认使用/ vue cli 3.3+ 弃用 baseUrl
+  publicPath: './', // 此处改为 './' 即可
   productionSourceMap: false,
+  outputDir: process.env.VUE_APP_OUT,
   devServer: {
     disableHostCheck: true,
     port: process.env.DEV_SERVER_PORT || 8080,
     proxy: {
       '^/api': {
-        target: 'http://localhost:3000',
+        target: 'https://music-api.jixiaokang.com/',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/',
+          '^/api': '',
         },
       },
     },
@@ -42,7 +45,7 @@ module.exports = {
       chunks: ['main', 'chunk-vendors', 'chunk-common', 'index'],
     },
   },
-  chainWebpack(config) {
+  chainWebpack (config) {
     config.module.rules.delete('svg');
     config.module.rule('svg').exclude.add(resolve('src/assets/icons')).end();
     config.module
