@@ -15,7 +15,7 @@ module.exports = {
     port: process.env.DEV_SERVER_PORT || 8080,
     proxy: {
       '^/api': {
-        target: 'https://music-api.jixiaokang.com/',
+        target: 'https://napi.h11y.cn/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '',
