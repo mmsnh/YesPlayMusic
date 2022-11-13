@@ -16,7 +16,7 @@ fi
 
 if [[ ! -d music ]];then
     mkdir music
-    git clone https://github.com/xkloveme/YesPlayMusic ./music && \
+    git clone https://github.com/mmsnh/YesPlayMusic ./music && \
     cd music && cp .env.example .env && npm install --force && npm run build && cd ..
 fi
 
